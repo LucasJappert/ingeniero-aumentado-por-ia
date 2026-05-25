@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#05060d" />
+    <meta name="author" content="Lucas Jappert" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <title>Ingeniero Aumentado por IA — Cohorte Mes 1</title>
+    <meta
+      name="description"
+      content="4 semanas · FastAPI · Cursor · code review en vivo. Backend deployado para entrevistas. 5 cupos."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/config.js"></script>
+    <script src="js/meta-pixel.js" defer></script>
+    <script src="js/tally-link.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var cfg = window.LANDING_CONFIG || {};
+        var url = (cfg.TALLY_FORM_URL || "").trim();
+        if (!url || url.indexOf("REEMPLAZAR") !== -1) {
+          var w = document.getElementById("config-warn");
+          if (w) w.classList.add("visible");
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="page-mesh" aria-hidden="true"></div>
+
+    <header class="site-nav">
+      <div class="site-nav__inner">
+        <a class="site-nav__brand" href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
+          >LJ</a
+        >
+        <a class="site-nav__link" href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
+          >Sobre mí</a
+        >
+      </div>
+    </header>
+
+    <main class="wrap">
+      <header class="hero">
+        <p class="chip">5 cupos · Entrevista 10 min</p>
+        <h1 class="hero__title">Ingeniero Aumentado por IA</h1>
+        <p class="lead">
+          Mes 1: <strong>Orquestador Backend</strong> — de vibe coder a orquestador técnico en 4 semanas.
+        </p>
+      </header>
+
+      <div id="config-warn" class="config-warn" role="status">
+        Falta configurar <code>landing/js/config.js</code> (píxel Meta + URL de Tally). Ver
+        <code>landing/README.md</code>.
+      </div>
+
+      <section class="card">
+        <h2 class="section-title">Qué vas a lograr</h2>
+        <ul class="clean">
+          <li>Trabajar con <strong>spec → IA ejecuta → vos auditás</strong> (sin vibe coding)</li>
+          <li>API <strong>FastAPI</strong> deployada + repo presentable para entrevistas</li>
+          <li>Criterio de code review: seguridad, tests, mantenibilidad</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">Formato</h2>
+        <div class="meta-grid">
+          <div><strong>Duración:</strong> 4 semanas (1 mes)</div>
+          <div><strong>Clases:</strong> 3 por semana × 1,5 h (~18 h en vivo)</div>
+          <div><strong>Grupo:</strong> 5 personas</div>
+          <div><strong>Inversión:</strong> USD 179–249 + Cursor Pro (~USD 20/mes)</div>
+        </div>
+      </section>
+
+      <section class="card profe">
+        <h2 class="section-title">Profe</h2>
+        <p>
+          <strong>Lucas Jappert</strong> · Responsable de Sistemas · 15+ años en producción.<br />
+          FastAPI, Node/Vue, Azure DevOps y flujo diario con Cursor en equipo real.
+        </p>
+        <p>
+          <a href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
+            >Ver perfil y proyectos</a
+          >
+          ·
+          <a href="https://www.linkedin.com/in/lucasjappert" target="_blank" rel="noopener">LinkedIn</a>
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">Admisión</h2>
+        <ul class="clean">
+          <li>Completás el formulario (2–3 min) — stack, experiencia y una pregunta técnica breve</li>
+          <li>Te escribo por <strong>WhatsApp Business</strong> en menos de 24 h</li>
+          <li>Entrevista técnica ligera de 10 min → seña para reservar cupo</li>
+        </ul>
+      </section>
+
+      <div class="cta-row" id="aplicar">
+        <a class="btn btn-primary" data-tally-apply href="#">Aplicar a la cohorte</a>
+        <a class="btn btn-ghost" href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
+          >Ver mi perfil</a
+        >
+      </div>
+
+      <p class="fine">
+        No prometemos empleo. Sí: repo, URL en producción y criterio de auditoría verificables. Sin número de
+        WhatsApp en esta página — el contacto es después del formulario.
+      </p>
+
+      <footer class="site-footer">
+        <p>Ingeniero Aumentado por IA · Mes 1 · Lucas Jappert</p>
+        <span class="site-footer__glow" aria-hidden="true"></span>
+      </footer>
+    </main>
+  </body>
+</html>
