@@ -37,15 +37,82 @@ URL del backend: usar placeholder hasta que el humano pegue la URL real del depl
 
 ### 1. Sheet
 
-1. [sheets.new](https://sheets.new) → nombre ej. `Aplicaciones Cohorte Mes 1`.
+1. [sheets.new](https://sheets.new) → nombre ej. `Aplicaciones Grupo Mes 1`.
 2. Fila 1 (headers): `timestamp`, `nombre`, `whatsapp`, `pais`, `experiencia`, `origen`, `tecnologias`, `ia_codear`, `github`, `costaria`, `horas_semana`, `email`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`.
 
 ### 2. Apps Script
 
 1. En la Sheet: **Extensiones → Apps Script**.
-2. Proyecto ej. `cohorte-aplicaciones`.
-3. Pegar script que reciba `POST` JSON, valide honeypot, append fila, opcional `MailApp.sendEmail` a tu Gmail.
-4. En el script: constante `SHEET_ID` = ID de la URL de la Sheet (`/d/ESTE_ID/edit`).
+2. Proyecto ej. `grupo-aplicaciones`.
+3. Pegar el script de abajo (`Code.gs`). Ajustá `SHEET_ID` y `NOTIFY_EMAIL`.
+4. Guardar → **Implementar** (paso 3).
+
+```javascript
+/** ID de la Sheet: /d/ESTE_ID/edit */
+var SHEET_ID = "REEMPLAZAR_SHEET_ID";
+/** Vacío = sin mail. Ej: "tu@gmail.com" */
+var NOTIFY_EMAIL = "";
+
+function doPost(e) {
+  try {
+    var raw = (e && e.postData && e.postData.contents) || "{}";
+    var data = JSON.parse(raw);
+
+    if ((data.website || "").toString().trim() !== "") {
+      return jsonOut({ ok: false, error: "spam" });
+    }
+    if (!(data.nombre || "").trim() || !(data.whatsapp || "").trim() || !(data.pais || "").trim()) {
+      return jsonOut({ ok: false, error: "missing_fields" });
+    }
+
+    var sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
+    sheet.appendRow([
+      new Date(),
+      data.nombre || "",
+      data.whatsapp || "",
+      data.pais || "",
+      data.experiencia || "",
+      data.origen || "",
+      data.tecnologias || "",
+      data.ia_codear || "",
+      data.github || "",
+      data.costaria || "",
+      data.horas_semana || "",
+      data.email || "",
+      data.utm_source || "",
+      data.utm_medium || "",
+      data.utm_campaign || "",
+      data.utm_content || "",
+      data.utm_term || "",
+    ]);
+
+    if (NOTIFY_EMAIL) {
+      MailApp.sendEmail({
+        to: NOTIFY_EMAIL,
+        subject: "Nueva aplicación — " + (data.nombre || "sin nombre"),
+        body:
+          "WhatsApp: " +
+          (data.whatsapp || "") +
+          "\nPaís: " +
+          (data.pais || "") +
+          "\nExperiencia: " +
+          (data.experiencia || "") +
+          "\nVer fila en la Sheet.",
+      });
+    }
+
+    return jsonOut({ ok: true });
+  } catch (err) {
+    return jsonOut({ ok: false, error: String(err) });
+  }
+}
+
+function jsonOut(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
+    ContentService.MimeType.JSON
+  );
+}
+```
 
 ### 3. Deploy → URL que usa la landing
 
@@ -68,15 +135,16 @@ FORM_SUBMIT_URL: "https://script.google.com/macros/s/AKfycb....../exec",
 
 ## Notas
 
-- La URL `/exec` **es pública**; el script debe ignorar POST sin honeypot vacío y campos mínimos.
-- `fetch` desde GitHub Pages: el script debe responder con CORS (`doPost` + headers) o usar `mode: 'no-cors'` y aceptar respuesta opaca — el agente debe elegir la opción que funcione con Apps Script.
+- La URL `/exec` **es pública**; el script ignora POST con honeypot `website` lleno o sin nombre/WhatsApp/país.
+- **Frontend:** `apply-form.js` usa `fetch` con `mode: 'no-cors'` y `Content-Type: text/plain` (compatible con GitHub Pages → Apps Script). Tras el POST redirige a `gracias.html` con UTMs; no lee el JSON de respuesta.
+- **Tally:** ya no se usa; `tally-link.js` quedó obsoleto (podés borrarlo del repo de deploy).
 - Cuando la URL real exista, reemplazar `REEMPLAZAR` en `config.js` y probar desde el celular con UTMs: `?utm_source=test&utm_campaign=manual`.
 
 ---
 
 ## Checklist mañana
 
-- [ ] Agente: formulario + `apply-form.js` commiteado
+- [x] Agente: formulario + `apply-form.js` en la landing
 - [ ] Vos: Sheet + Apps Script + deploy `/exec`
-- [ ] `config.js` con URL real
+- [ ] `config.js` con URL real (+ `META_PIXEL_ID` si corres ads)
 - [ ] Prueba end-to-end + actualizar `TODO.md` (quitar Tally, marcar form propio)

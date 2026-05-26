@@ -7,6 +7,10 @@
     <meta name="author" content="Lucas Jappert" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <title>Aplicación recibida — Ingeniero Aumentado por IA</title>
+    <meta
+      name="description"
+      content="Aplicación recibida al Grupo Mes 1. Próximo paso: WhatsApp y entrevista de admisión de 10 min."
+    />
     <meta name="robots" content="noindex" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +20,7 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/config.js"></script>
-    <script src="js/meta-pixel.js"></script>
+    <script src="js/meta-pixel.js" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         if (typeof window.trackMetaLead === "function") {
@@ -26,52 +30,77 @@
     </script>
   </head>
   <body>
-    <div class="page-mesh" aria-hidden="true"></div>
+    <div class="page-mesh" aria-hidden="true">
+      <span class="page-mesh__blob page-mesh__blob--cyan"></span>
+      <span class="page-mesh__blob page-mesh__blob--green"></span>
+      <span class="page-mesh__blob page-mesh__blob--agua"></span>
+      <span class="page-mesh__blob page-mesh__blob--soft"></span>
+    </div>
 
     <header class="site-nav">
       <div class="site-nav__inner">
         <a class="site-nav__brand" href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
           >LJ</a
         >
-        <a class="site-nav__link" href="index.html">Inicio cohorte</a>
+        <a class="site-nav__link" href="index.html">Volver al inicio</a>
       </div>
     </header>
 
     <main class="wrap">
-      <header class="thanks-hero">
-        <p class="thanks-icon" aria-hidden="true">✓</p>
+      <header class="hero">
+        <p class="chip chip--verde">Aplicación enviada</p>
         <h1 class="hero__title">Aplicación recibida</h1>
         <p class="lead">
-          Gracias por aplicar a <strong>Ingeniero Aumentado por IA — Mes 1</strong>.
+          Gracias por aplicar a <strong>Ingeniero Aumentado por IA — Mes 1</strong> (Orquestador Backend).
         </p>
+        <aside class="hero-trust" role="status">
+          <p class="hero-trust__main">
+            Te escribo por <strong>WhatsApp en menos de 24 h</strong> (horario ART) para coordinar la entrevista de
+            admisión de 10 min.
+          </p>
+          <p class="hero-trust__disclaimer">
+            No es pago ni cupo garantizado hasta después de la charla. Yo ya tengo tu aplicación — no hace falta que
+            reescribas nada.
+          </p>
+        </aside>
       </header>
 
       <section class="card">
         <h2 class="section-title">Próximos pasos</h2>
         <ol class="thanks-steps">
-          <li>Te escribo por <strong>WhatsApp</strong> en las próximas <strong>24 horas</strong> (horario ART).</li>
-          <li>Tené a mano las respuestas del formulario y conexión estable para la charla.</li>
-          <li>Coordinamos la <strong>entrevista de admisión</strong> (10 min).</li>
+          <li>
+            <strong>Esperá mi WhatsApp</strong> (menos de 24 h, horario ART). Te escribo a tu número con un resumen de
+            lo que mandaste.
+          </li>
+          <li>
+            Cuando respondas, confirmamos <strong>dedicación semanal</strong> (6–10 h con práctica) e
+            <strong>inversión</strong> del grupo; ahí coordinamos día y hora de la entrevista.
+          </li>
+          <li>
+            En la charla de <strong>10 min</strong> repasamos fit y expectativas. Si dejaste link a GitHub o GitLab en
+            el form, lo vemos ahí (opcional).
+          </li>
         </ol>
       </section>
 
       <section class="card">
-        <h2 class="section-title">Mientras tanto</h2>
+        <h2 class="section-title">Si te sumás al grupo</h2>
+        <ul class="clean">
+          <li><strong>4 semanas</strong> · 3 clases/semana × 1,5 h · spec → IA → tu auditoría</li>
+          <li>API <strong>FastAPI</strong> deployada + repo para entrevistas</li>
+          <li><strong>Inversión:</strong> USD 179–249 (+ Cursor Pro ~USD 20/mes)</li>
+        </ul>
         <p>
-          Si tenés repo en GitHub o GitLab, podés tenerlo a mano (opcional). Inversión de la cohorte:
-          <strong>USD 179–249</strong> según cupo fundador o estándar (+ Cursor Pro aparte).
+          <a href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener">Perfil del profe</a>
         </p>
       </section>
 
-      <div class="cta-row">
+      <div class="thanks-actions">
         <a class="btn btn-primary" href="index.html">Volver al inicio</a>
-        <a class="btn btn-ghost" href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
-          >Ver mi perfil</a
-        >
       </div>
 
       <footer class="site-footer">
-        <p>Ingeniero Aumentado por IA · Lucas Jappert</p>
+        <p>Ingeniero Aumentado por IA · Mes 1 · Lucas Jappert</p>
         <span class="site-footer__glow" aria-hidden="true"></span>
       </footer>
     </main>

@@ -3,6 +3,6 @@
  */
 window.LANDING_CONFIG = {
   META_PIXEL_ID: "",
-  TALLY_FORM_URL: "https://tally.so/r/REEMPLAZAR",
+  FORM_SUBMIT_URL: "https://script.google.com/macros/s/REEMPLAZAR/exec",
   THANK_YOU_PATH: "gracias.html",
 };
