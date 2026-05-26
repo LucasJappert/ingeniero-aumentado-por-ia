@@ -75,6 +75,7 @@ body {
   background: var(--bg-deep);
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 a {
@@ -209,6 +210,7 @@ a:hover {
   width: min(720px, 92vw);
   margin: 0 auto;
   padding: 2rem 0 4rem;
+  /* overflow-x: hidden; */
 }
 
 @media (min-width: 768px) {
@@ -1180,9 +1182,9 @@ ul.clean li strong {
 body.field-picker-open .page-mesh,
 body.field-picker-open .site-nav,
 body.field-picker-open .wrap {
-  filter: blur(22px);
-  -webkit-filter: blur(22px);
-  transition: filter 0.2s ease;
+  filter: blur(12px);
+  -webkit-filter: blur(12px);
+  /* transition: all 0.1s ease-in-out; */
   pointer-events: none;
   user-select: none;
 }
@@ -1230,9 +1232,7 @@ body.field-picker-open .wrap {
   -webkit-backdrop-filter: blur(18px) saturate(1.15);
   border: 1px solid rgba(0, 232, 255, 0.2);
   border-radius: var(--radius-lg);
-  box-shadow:
-    0 20px 56px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px #000000;
 }
 
 .field-picker__header {
@@ -1338,9 +1338,9 @@ body.field-picker-open .wrap {
   border-radius: var(--radius);
 }
 
-body.field-picker-open {
+/* body.field-picker-open {
   overflow: hidden;
-}
+} */
 
 .chip-group {
   display: flex;
