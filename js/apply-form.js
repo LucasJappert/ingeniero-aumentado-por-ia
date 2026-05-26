@@ -412,6 +412,24 @@
     return null;
   }
 
+  function setSubmitOverlay(visible) {
+    var overlay = document.getElementById("form-submit-overlay");
+    var page = document.querySelector(".wrap");
+    if (!overlay) return;
+
+    if (visible) {
+      overlay.hidden = false;
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("form-submitting");
+      if (page) page.setAttribute("inert", "");
+    } else {
+      overlay.hidden = true;
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("form-submitting");
+      if (page) page.removeAttribute("inert");
+    }
+  }
+
   function setLoading(submitBtn, loading) {
     if (!submitBtn) return;
     var form = submitBtn.closest("form");
@@ -421,7 +439,24 @@
     var wait = submitBtn.querySelector(".btn-loading");
     if (label) label.hidden = loading;
     if (wait) wait.hidden = !loading;
-    if (!loading && form) updateFormControls(form);
+
+    if (loading && form) {
+      form.querySelectorAll(".field-picker.is-open").forEach(closeFieldPicker);
+      var prevBtn = document.getElementById("form-prev");
+      var nextBtn = document.getElementById("form-next");
+      if (prevBtn) prevBtn.disabled = true;
+      if (nextBtn) nextBtn.disabled = true;
+    }
+
+    setSubmitOverlay(loading);
+
+    if (!loading && form) {
+      var prevBtnOff = document.getElementById("form-prev");
+      var nextBtnOff = document.getElementById("form-next");
+      if (prevBtnOff) prevBtnOff.disabled = false;
+      if (nextBtnOff) updateNextButton(form);
+      updateFormControls(form);
+    }
   }
 
   function getPickerNodes(picker) {

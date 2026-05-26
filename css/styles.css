@@ -1565,6 +1565,81 @@ body.field-picker-open .wrap {
   display: none;
 }
 
+/* —— Envío del formulario (overlay bloqueante) —— */
+
+body.form-submitting {
+  overflow: hidden;
+}
+
+.form-submit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(5, 6, 13, 0.78);
+  backdrop-filter: blur(10px) saturate(0.95);
+  -webkit-backdrop-filter: blur(10px) saturate(0.95);
+}
+
+.form-submit-overlay[hidden] {
+  display: none !important;
+}
+
+.form-submit-overlay__panel {
+  width: min(100%, 20rem);
+  margin: 0;
+  padding: 1.5rem 1.35rem 1.35rem;
+  text-align: center;
+  background: rgba(12, 14, 24, 0.96);
+  border: 1px solid rgba(0, 232, 255, 0.22);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glow), 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.form-submit-overlay__spinner {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 auto 1.1rem;
+  border: 3px solid rgba(0, 232, 255, 0.14);
+  border-top-color: var(--celeste);
+  border-right-color: var(--agua);
+  border-radius: 50%;
+  animation: form-submit-spin 0.85s linear infinite;
+}
+
+.form-submit-overlay__title {
+  margin: 0 0 0.45rem;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+.form-submit-overlay__hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+@keyframes form-submit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-submit-overlay__spinner {
+    animation: none;
+    border-top-color: var(--celeste);
+    border-right-color: var(--agua);
+    opacity: 0.9;
+  }
+}
+
 .form-profile-warn {
   margin: 0.5rem 0 0;
   padding: 0.55rem 0.75rem;
