@@ -50,8 +50,14 @@
 
 html {
   scroll-behavior: smooth;
-  /* Evita zoom por doble tap; el pinch se controla con el meta viewport */
-  touch-action: manipulation;
+  /* pan-x/y sin pinch-zoom (WebKit); doble tap lo cubre manipulation en controles */
+  touch-action: pan-x pan-y;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  touch-action: pan-x pan-y;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -78,6 +84,19 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
   overflow-x: hidden;
+}
+
+/* iOS: zoom al enfocar inputs con font-size < 16px (Safari/Brave usan WebKit) */
+@supports (-webkit-touch-callout: none) {
+  .apply-form input[type="text"],
+  .apply-form input[type="tel"],
+  .apply-form input[type="email"],
+  .apply-form input[type="url"],
+  .apply-form textarea,
+  .apply-form select,
+  .field-picker__trigger {
+    font-size: 16px !important;
+  }
 }
 
 a {
