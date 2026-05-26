@@ -50,6 +50,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Evita zoom por doble tap; el pinch se controla con el meta viewport */
+  touch-action: manipulation;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1034,7 +1036,8 @@ ul.clean li strong {
   width: 100%;
   padding: 0.65rem 0.85rem;
   font-family: inherit;
-  font-size: var(--text-sm);
+  /* ≥16px en móvil: iOS hace zoom al enfocar si el tamaño es menor */
+  font-size: max(16px, var(--text-sm));
   color: var(--text);
   background-color: rgba(5, 6, 13, 0.6);
   border: 1px solid var(--border);
@@ -1118,7 +1121,7 @@ ul.clean li strong {
   margin: 0;
   padding: 0.65rem 0.85rem;
   font-family: inherit;
-  font-size: var(--text-sm);
+  font-size: max(16px, var(--text-sm));
   font-weight: 500;
   text-align: left;
   color: var(--text-muted);
