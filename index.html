@@ -142,40 +142,43 @@
 						<input type="tel" id="whatsapp" name="whatsapp" required placeholder="+54 9 11 …"
 							autocomplete="tel" />
 					</div>
-					<div class="form-field form-field--inline" data-field="pais">
-						<span class="form-label" id="pais-label">País <span class="req">*</span></span>
-						<div class="field-picker" data-mode="single" data-placeholder="Seleccioná…" role="radiogroup"
-							aria-labelledby="pais-label">
-							<button type="button" class="field-picker__trigger" aria-haspopup="listbox"
-								aria-expanded="false">
-								<span class="field-picker__text">Seleccioná…</span>
-								<span class="field-picker__chevron" aria-hidden="true"></span>
-							</button>
-							<div class="field-picker__backdrop" hidden></div>
-							<div class="field-picker__sheet" role="listbox" hidden>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="Argentina" required
-										aria-required="true" /><span>Argentina</span></label>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="México" /><span>México</span></label>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="Colombia" /><span>Colombia</span></label>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="Chile" /><span>Chile</span></label>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="España" /><span>España</span></label>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="Uruguay" /><span>Uruguay</span></label>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="Perú" /><span>Perú</span></label>
-								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
-										name="pais" value="otro" /><span>Otro</span></label>
+					<!-- País: oculto (landing solo Argentina). Para volver a mostrar: quitar hidden de #pais-field-wrap -->
+					<div id="pais-field-wrap" class="form-pais-field" hidden>
+						<div class="form-field form-field--inline" data-field="pais">
+							<span class="form-label" id="pais-label">País <span class="req">*</span></span>
+							<div class="field-picker" data-mode="single" data-placeholder="Seleccioná…" role="radiogroup"
+								aria-labelledby="pais-label">
+								<button type="button" class="field-picker__trigger" aria-haspopup="listbox"
+									aria-expanded="false">
+									<span class="field-picker__text">Seleccioná…</span>
+									<span class="field-picker__chevron" aria-hidden="true"></span>
+								</button>
+								<div class="field-picker__backdrop" hidden></div>
+								<div class="field-picker__sheet" role="listbox" hidden>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="Argentina" required
+											aria-required="true" checked /><span>Argentina</span></label>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="México" /><span>México</span></label>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="Colombia" /><span>Colombia</span></label>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="Chile" /><span>Chile</span></label>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="España" /><span>España</span></label>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="Uruguay" /><span>Uruguay</span></label>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="Perú" /><span>Perú</span></label>
+									<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+											name="pais" value="otro" /><span>Otro</span></label>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div id="pais-otro-wrap" class="form-field form-field--inline hidden">
-						<label for="pais_otro">¿Cuál? <span class="opt">(opcional)</span></label>
-						<input type="text" id="pais_otro" name="pais_otro" placeholder="País o zona horaria" />
+						<div id="pais-otro-wrap" class="form-field form-field--inline hidden">
+							<label for="pais_otro">¿Cuál? <span class="opt">(opcional)</span></label>
+							<input type="text" id="pais_otro" name="pais_otro" placeholder="País o zona horaria" />
+						</div>
 					</div>
 				</fieldset>
 

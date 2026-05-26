@@ -30,9 +30,25 @@ function doPost(e) {
   }
 }
 
-function doGet() {
+function doGet(e) {
+  var p = e && e.parameter ? e.parameter : {};
+  if (p.type === "event" && p.event) {
+    return handleEvent_({
+      type: "event",
+      event: p.event,
+      section: p.section || "",
+      page: p.page || "",
+      page_path: p.page_path || "",
+      session_id: p.session_id || "",
+      utm_source: p.utm_source || "",
+      utm_medium: p.utm_medium || "",
+      utm_campaign: p.utm_campaign || "",
+      utm_content: p.utm_content || "",
+      utm_term: p.utm_term || "",
+    });
+  }
   return ContentService.createTextOutput(
-    JSON.stringify({ ok: true, service: "ingeniero-aumentado-form", version: 2 })
+    JSON.stringify({ ok: true, service: "ingeniero-aumentado-form", version: 4 })
   ).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -93,6 +109,7 @@ function handleEvent_(data) {
     clean_(data.event),
     clean_(data.section),
     clean_(data.page),
+    clean_(data.page_path),
     clean_(data.session_id),
     clean_(data.utm_source),
     clean_(data.utm_medium),
@@ -129,6 +146,7 @@ var EVENT_HEADERS_ = [
   "event",
   "section",
   "page",
+  "page_path",
   "session_id",
   "utm_source",
   "utm_medium",

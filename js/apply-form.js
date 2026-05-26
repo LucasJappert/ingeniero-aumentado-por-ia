@@ -5,6 +5,7 @@
   var COSTARIA_MIN_LEN = 15;
   var TOTAL_STEPS = 2;
   var STEP_LABELS = ["Contacto", "Tu perfil"];
+  var PAIS_DEFAULT = "Argentina";
 
   function getConfig() {
     return window.LANDING_CONFIG || {};
@@ -59,7 +60,19 @@
     return !!form.querySelector('input[name="' + name + '"]:checked');
   }
 
+  function isPaisFieldVisible(form) {
+    var wrap = document.getElementById("pais-field-wrap");
+    return wrap && !wrap.hidden;
+  }
+
+  function ensureDefaultPais(form) {
+    if (isPaisFieldVisible(form)) return;
+    var argentina = form.querySelector('input[name="pais"][value="' + PAIS_DEFAULT + '"]');
+    if (argentina) argentina.checked = true;
+  }
+
   function isPaisValid(form) {
+    if (!isPaisFieldVisible(form)) return true;
     return hasRadio(form, "pais");
   }
 
@@ -97,11 +110,12 @@
   }
 
   function step1ProgressPct(form) {
+    var total = isPaisFieldVisible(form) ? 3 : 2;
     var done = 0;
     if (trimVal(form, "nombre")) done++;
     if (trimVal(form, "whatsapp")) done++;
-    if (isPaisValid(form)) done++;
-    return (done / 3) * (100 / TOTAL_STEPS);
+    if (isPaisFieldVisible(form) && isPaisValid(form)) done++;
+    return (done / total) * (100 / TOTAL_STEPS);
   }
 
   function step2ProgressPct(form) {
@@ -300,12 +314,13 @@
   }
 
   function resolvePaisForPayload(form) {
+    if (!isPaisFieldVisible(form)) return PAIS_DEFAULT;
     var v = trimVal(form, "pais");
     if (v === "otro") {
       var detail = trimVal(form, "pais_otro");
       return detail ? "otro: " + detail : "otro";
     }
-    return v;
+    return v || PAIS_DEFAULT;
   }
 
   function showError(form, message) {
@@ -366,7 +381,7 @@
       if (!trimVal(form, "whatsapp")) {
         return { el: form.querySelector('[name="whatsapp"]'), msg: "Dejá tu WhatsApp con código de país." };
       }
-      if (!isPaisValid(form)) {
+      if (isPaisFieldVisible(form) && !isPaisValid(form)) {
         return { el: form.querySelector('input[name="pais"]'), msg: "Elegí tu país o zona horaria." };
       }
       return null;
@@ -794,6 +809,7 @@
     if (!form) return;
 
     fillUtmHiddenFields(form);
+    ensureDefaultPais(form);
     syncPaisOtroWrap(form);
     bindAreasExclusive(form);
     bindFieldPickers(form);
@@ -884,6 +900,8 @@
         return;
       }
 
+      ensureDefaultPais(form);
+
       var submitBtn = document.getElementById("form-submit");
       setLoading(submitBtn, true);
 
@@ -891,6 +909,9 @@
 
       submitPayload(submitUrl, payload)
         .then(function () {
+          if (typeof window.trackLandingEvent === "function") {
+            window.trackLandingEvent("application_submit", "aplicar");
+          }
           window.location.href = buildThankYouUrl(cfg);
         })
         .catch(function () {

@@ -1,6 +1,6 @@
 /**
- * Eventos de funnel → misma URL que FORM_SUBMIT_URL (Apps Script, type: "event").
- * Opcional: incluir con <script src="js/landing-events.js" defer></script>
+ * Visitas y funnel → misma FORM_SUBMIT_URL (Apps Script).
+ * Pestaña "Eventos" en la Sheet. No requiere Meta Pixel.
  */
 (function () {
   var SESSION_KEY = "iaah_session_id";
@@ -45,20 +45,20 @@
     return path.indexOf("gracias") !== -1 ? "gracias" : "index";
   }
 
-  function sendEvent(name, section) {
-    var endpoint = getEndpoint();
-    if (!endpoint) return;
+  /** Dominio + puerto (dev: localhost:8080 · prod: lucasjappert.github.io) */
+  function pageWithHost() {
+    var host = window.location.host || window.location.hostname || "";
+    return (host ? host + " · " : "") + pageName();
+  }
 
-    var dedupeKey = name + "|" + (section || "");
-    if (SENT[dedupeKey]) return;
-    SENT[dedupeKey] = true;
-
+  function buildPayload(name, section) {
     var utms = readUtms();
-    var payload = {
+    return {
       type: "event",
       event: name,
       section: section || "",
-      page: pageName(),
+      page: pageWithHost(),
+      page_path: window.location.pathname + window.location.search,
       session_id: sessionId(),
       utm_source: utms.utm_source || "",
       utm_medium: utms.utm_medium || "",
@@ -66,16 +66,29 @@
       utm_content: utms.utm_content || "",
       utm_term: utms.utm_term || "",
     };
+  }
 
-    try {
-      if (navigator.sendBeacon) {
-        var blob = new Blob([JSON.stringify(payload)], { type: "text/plain;charset=utf-8" });
-        navigator.sendBeacon(endpoint, blob);
-        return;
+  /** GET vía imagen — muy fiable con Apps Script (visitas de página). */
+  function sendEventGet(payload) {
+    var endpoint = getEndpoint();
+    if (!endpoint) return;
+
+    var base = endpoint.indexOf("?") === -1 ? endpoint : endpoint.split("?")[0];
+    var params = new URLSearchParams();
+    Object.keys(payload).forEach(function (key) {
+      if (payload[key] !== undefined && payload[key] !== null) {
+        params.set(key, String(payload[key]));
       }
-    } catch (e) {
-      /* fallback fetch */
-    }
+    });
+
+    var img = new Image();
+    img.src = base + "?" + params.toString();
+  }
+
+  /** POST JSON — mismo canal que el formulario. */
+  function sendEventPost(payload) {
+    var endpoint = getEndpoint();
+    if (!endpoint) return;
 
     fetch(endpoint, {
       method: "POST",
@@ -87,6 +100,29 @@
       /* silencioso */
     });
   }
+
+  function sendEvent(name, section, opts) {
+    var endpoint = getEndpoint();
+    if (!endpoint) return;
+
+    var dedupeKey = name + "|" + (section || "") + "|" + pageName();
+    if (SENT[dedupeKey]) return;
+    SENT[dedupeKey] = true;
+
+    var payload = buildPayload(name, section);
+    var useGet = opts && opts.get === true;
+
+    if (useGet) {
+      sendEventGet(payload);
+    } else {
+      sendEventPost(payload);
+    }
+  }
+
+  /** Para llamar desde apply-form.js al enviar aplicación. */
+  window.trackLandingEvent = function (name, section, opts) {
+    sendEvent(name, section, opts);
+  };
 
   function bindSectionTracking() {
     var map = {
@@ -141,11 +177,12 @@
   document.addEventListener("DOMContentLoaded", function () {
     var page = pageName();
     if (page === "gracias") {
-      sendEvent("thank_you_view", "gracias");
+      sendEvent("thank_you_view", "gracias", { get: true });
       return;
     }
 
-    sendEvent("landing_view", "hero");
+    sendEvent("page_view", "landing", { get: true });
+    sendEvent("landing_view", "hero", { get: true });
     bindSectionTracking();
     bindFormStepTracking();
   });

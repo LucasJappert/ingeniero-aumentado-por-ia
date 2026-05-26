@@ -199,17 +199,35 @@ Sirve para ver en qué paso se cae la gente que viene de Instagram.
 
 ---
 
-## 7. Eventos en la landing (opcional)
+## 7. Visitas y funnel en la Sheet (sin Meta Pixel)
 
-En `index.html`, antes de `</body>`:
+**Ya incluido** en `index.html` y `gracias.html`: `js/landing-events.js`.
 
-```html
-<script src="js/landing-events.js" defer></script>
-```
+Usa la **misma** `FORM_SUBMIT_URL`. Escribe en la pestaña **`Eventos`** (se crea sola).
 
-En `gracias.html`, igual. Usa la misma `FORM_SUBMIT_URL`.
+| event | Significado |
+|-------|-------------|
+| `page` (columna) | Dominio + página, ej. `lucasjappert.github.io · index` o `localhost:8080 · index` |
+| `page_view` | Entró a la landing (visitas desde ads) |
+| `landing_view` | Igual sesión, marca hero |
+| `section_programa` / `section_profe` | Abrió un bloque |
+| `form_visible` | Llegó al formulario |
+| `form_step_2` | Pasó al paso 2 |
+| `application_submit` | Envió el formulario |
+| `thank_you_view` | Llegó a gracias.html |
 
-No bloquea el envío del formulario si falla el tracking.
+**Contar visitas:** en la Sheet, pestaña **Eventos**, filtrá `event = page_view` y contá `session_id` únicos (o filas por día).
+
+### Importante: actualizar Apps Script
+
+Si pegaste el script **antes** de esta función, en Apps Script:
+
+1. Reemplazá `Code.gs` por la versión nueva del repo (`google-apps-script/Code.gs`).
+2. **Implementar** → **Administrar implementaciones** → lápiz → **Nueva versión** → Implementar.
+
+Sin eso, los eventos por GET no se guardan.
+
+**Meta Pixel:** opcional. Para el piloto alcanza con **Eventos + Aplicaciones** en la Sheet.
 
 ---
 
