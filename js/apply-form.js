@@ -707,6 +707,7 @@
   function buildPayload(form) {
     var fd = new FormData(form);
     return {
+      type: "application",
       nombre: (fd.get("nombre") || "").toString().trim(),
       whatsapp: (fd.get("whatsapp") || "").toString().trim(),
       pais: resolvePaisForPayload(form),
