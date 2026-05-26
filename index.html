@@ -1,437 +1,303 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#05060d" />
-    <meta name="author" content="Lucas Jappert" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <title>Ingeniero Aumentado por IA — Grupo Mes 1</title>
-    <meta
-      name="description"
-      content="4 semanas · FastAPI · Cursor · code review en vivo. Backend deployado para entrevistas. 5 cupos."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/config.js"></script>
-    <script src="js/meta-pixel.js" defer></script>
-    <script src="js/apply-form.js" defer></script>
-  </head>
-  <body>
-    <div class="page-mesh" aria-hidden="true">
-      <span class="page-mesh__blob page-mesh__blob--cyan"></span>
-      <span class="page-mesh__blob page-mesh__blob--green"></span>
-      <span class="page-mesh__blob page-mesh__blob--agua"></span>
-      <span class="page-mesh__blob page-mesh__blob--soft"></span>
-    </div>
 
-    <header class="site-nav">
-      <div class="site-nav__inner">
-        <a class="site-nav__brand" href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
-          >LJ</a
-        >
-        <a class="site-nav__link" href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener"
-          >Perfil del profe</a
-        >
-      </div>
-    </header>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#05060d" />
+	<meta name="author" content="Lucas Jappert" />
+	<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+	<title>Ingeniero Aumentado por IA — Grupo Mes 1</title>
+	<meta name="description"
+		content="4 semanas · FastAPI · Cursor · code review en vivo. Backend deployado para entrevistas. 5 cupos." />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="css/styles.css" />
+	<script src="js/config.js"></script>
+	<!-- Red neuronal (canvas): desactivado — ver js/neural-bg.js -->
+	<!-- <script src="js/neural-bg.js" defer></script> -->
+	<script src="js/meta-pixel.js" defer></script>
+	<script src="js/apply-form.js" defer></script>
+</head>
 
-    <main class="wrap">
-      <header class="hero">
-        <p class="chip">5 cupos · Entrevista 10 min</p>
-        <h1 class="hero__title">Ingeniero Aumentado por IA</h1>
-        <p class="lead">
-          Mes 1: <strong>Orquestador Backend</strong> — de vibe coder a orquestador técnico en 4 semanas.
-        </p>
-        <aside class="hero-trust" role="note">
-          <p class="hero-trust__main">
-            Vas a ver en vivo cómo trabaja un dev con <strong>15+ años en producción</strong>: spec, IA, code review y
-            deploy con rigor de equipo serio.
-          </p>
-          <p class="hero-trust__disclaimer">
-            Sin promesa de empleo. Sí: repo, URL en producción y criterio de auditoría verificables.
-          </p>
-        </aside>
-      </header>
+<body>
 
-      <div id="config-warn" class="config-warn" role="status">
-        Falta la URL del formulario en <code>js/config.js</code> (<code>FORM_SUBMIT_URL</code>).
-      </div>
+	<header class="site-nav">
+		<div class="site-nav__inner">
+			<a class="site-nav__brand" href="https://lucasjappert.github.io/myprofile/" target="_blank"
+				rel="noopener">LJ</a>
+			<a class="site-nav__link" href="https://lucasjappert.github.io/myprofile/" target="_blank"
+				rel="noopener">Perfil del profe</a>
+		</div>
+	</header>
 
-      <details class="card card--collapsible card--programa">
-        <summary class="card__summary">
-          <h2 class="section-title">Programa y precio</h2>
-          <span class="card__chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="card__panel">
-          <ul class="clean">
-            <li><strong>spec → IA ejecuta → vos auditás</strong> (sin vibe coding)</li>
-            <li>API <strong>FastAPI</strong> deployada + repo para entrevistas</li>
-            <li>Code review: seguridad, tests, mantenibilidad</li>
-          </ul>
-          <div class="meta-grid meta-grid--compact">
-            <div><strong>4 semanas</strong> · 3 clases/semana × 1,5 h</div>
-            <div><strong>Grupo:</strong> 5 personas</div>
-            <div><strong>Inversión:</strong> USD 179–249 (+ Cursor Pro ~USD 20/mes)</div>
-          </div>
-        </div>
-      </details>
+	<main class="wrap">
+		<div class="page-mesh" aria-hidden="true">
+			<span class="page-mesh__blob page-mesh__blob--cyan"></span>
+			<span class="page-mesh__blob page-mesh__blob--green"></span>
+			<span class="page-mesh__blob page-mesh__blob--agua"></span>
+			<!-- <span class="page-mesh__blob page-mesh__blob--soft"></span> -->
+		</div>
+		<header class="hero">
+			<p class="chip">5 cupos · Entrevista 10 min</p>
+			<h1 class="hero__title">Ingeniero Aumentado por IA</h1>
+			<p class="lead">
+				Mes 1: <strong>Orquestador Backend</strong> — de vibe coder a orquestador técnico en 4 semanas.
+			</p>
+			<aside class="hero-trust" role="note">
+				<p class="hero-trust__main">
+					Vas a ver en vivo cómo trabaja un dev con <strong>15+ años en producción</strong>: spec, IA, code
+					review y
+					deploy con rigor de equipo serio.
+				</p>
+				<p class="hero-trust__disclaimer">
+					Sin promesa de empleo. Sí: repo, URL en producción y criterio de auditoría verificables.
+				</p>
+			</aside>
+		</header>
 
-      <details class="card card--collapsible profe">
-        <summary class="card__summary">
-          <h2 class="section-title">Quién lo dicta</h2>
-          <span class="card__chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="card__panel">
-          <p>
-            <strong>Lucas Jappert</strong> · Responsable de Sistemas · 15+ años en producción.<br />
-            FastAPI, Node/Vue, Azure DevOps y flujo diario con Cursor en equipo real.
-          </p>
-          <p>
-            <a href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener">Perfil del profe</a>
-          </p>
-        </div>
-      </details>
+		<div id="config-warn" class="config-warn" role="status">
+			Falta la URL del formulario en <code>js/config.js</code> (<code>FORM_SUBMIT_URL</code>).
+		</div>
 
-      <section class="card apply-section" id="aplicar">
-        <h2 class="section-title">Aplicar al grupo <span class="section-title__meta">(~30 seg)</span></h2>
-        <p class="apply-intro">Te escribo por WhatsApp en menos de 24 h.</p>
+		<details class="card card--collapsible card--programa">
+			<summary class="card__summary">
+				<h2 class="section-title">Programa y precio</h2>
+				<span class="card__chevron" aria-hidden="true"></span>
+			</summary>
+			<div class="card__panel">
+				<ul class="clean">
+					<li><strong>spec → IA ejecuta → vos auditás</strong> (sin vibe coding)</li>
+					<li>API <strong>FastAPI</strong> deployada + repo para entrevistas</li>
+					<li>Code review: seguridad, tests, mantenibilidad</li>
+				</ul>
+				<div class="meta-grid meta-grid--compact">
+					<div><strong>4 semanas</strong> · 3 clases/semana × 1,5 h</div>
+					<div><strong>Grupo:</strong> 5 personas</div>
+					<div><strong>Inversión:</strong> USD 179–249 (+ Cursor Pro ~USD 20/mes)</div>
+				</div>
+			</div>
+		</details>
 
-        <div class="form-steps-header">
-          <div class="form-step-meta">
-            <p class="form-step-label" id="form-step-label" aria-live="polite">Paso 1 de 2 — Contacto</p>
-            <button type="button" class="form-step-back" id="form-prev" hidden>← Atrás</button>
-          </div>
-          <div class="form-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="form-progress">
-            <div class="form-progress__bar" id="form-progress-bar"></div>
-          </div>
-        </div>
+		<details class="card card--collapsible profe">
+			<summary class="card__summary">
+				<h2 class="section-title">Quién lo dicta</h2>
+				<span class="card__chevron" aria-hidden="true"></span>
+			</summary>
+			<div class="card__panel">
+				<p>
+					<strong>Lucas Jappert</strong> · Responsable de Sistemas · 15+ años en producción.<br />
+					FastAPI, Node/Vue, Azure DevOps y flujo diario con Cursor en equipo real.
+				</p>
+				<p>
+					<a href="https://lucasjappert.github.io/myprofile/" target="_blank" rel="noopener">Perfil del
+						profe</a>
+				</p>
+			</div>
+		</details>
 
-        <form id="apply-form" class="apply-form" novalidate>
-          <p class="form-error" role="alert" hidden></p>
+		<section class="card apply-section" id="aplicar">
+			<h2 class="section-title">Aplicar al grupo <span class="section-title__meta">(~30 seg)</span></h2>
+			<p class="apply-intro">Te escribo por WhatsApp en menos de 24 h.</p>
 
-          <div class="hp-field" aria-hidden="true">
-            <label for="website">Sitio web</label>
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
-          </div>
+			<div class="form-steps-header">
+				<div class="form-step-meta">
+					<p class="form-step-label" id="form-step-label" aria-live="polite">Paso 1 de 2 — Contacto</p>
+					<button type="button" class="form-step-back" id="form-prev" hidden>← Atrás</button>
+				</div>
+				<div class="form-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+					id="form-progress">
+					<div class="form-progress__bar" id="form-progress-bar"></div>
+				</div>
+			</div>
 
-          <input type="hidden" name="utm_source" />
-          <input type="hidden" name="utm_medium" />
-          <input type="hidden" name="utm_campaign" />
-          <input type="hidden" name="utm_content" />
-          <input type="hidden" name="utm_term" />
+			<form id="apply-form" class="apply-form" novalidate>
+				<p class="form-error" role="alert" hidden></p>
 
-          <fieldset class="form-group is-active" data-step="1">
-            <legend class="form-legend visually-hidden">Contacto</legend>
-            <div class="form-field form-field--inline">
-              <label for="nombre">Nombre <span class="req">*</span></label>
-              <input type="text" id="nombre" name="nombre" required autocomplete="name" />
-            </div>
-            <div class="form-field form-field--inline">
-              <label for="whatsapp">WhatsApp <span class="req">*</span></label>
-              <input
-                type="tel"
-                id="whatsapp"
-                name="whatsapp"
-                required
-                placeholder="+54 9 11 …"
-                autocomplete="tel"
-              />
-            </div>
-            <div class="form-field form-field--inline" data-field="pais">
-              <span class="form-label" id="pais-label">País <span class="req">*</span></span>
-              <div
-                class="field-picker"
-                data-mode="single"
-                data-placeholder="Seleccioná…"
-                role="radiogroup"
-                aria-labelledby="pais-label"
-              >
-                <button
-                  type="button"
-                  class="field-picker__trigger"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                >
-                  <span class="field-picker__text">Seleccioná…</span>
-                  <span class="field-picker__chevron" aria-hidden="true"></span>
-                </button>
-                <div class="field-picker__backdrop" hidden></div>
-                <div class="field-picker__sheet" role="listbox" hidden>
-                  <label class="field-picker__option chip"
-                    ><input
-                      class="visually-hidden"
-                      type="radio"
-                      name="pais"
-                      value="Argentina"
-                      required
-                      aria-required="true"
-                    /><span>Argentina</span></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="pais" value="México" /><span
-                      >México</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="pais" value="Colombia" /><span
-                      >Colombia</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="pais" value="Chile" /><span>Chile</span></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="pais" value="España" /><span
-                      >España</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="pais" value="Uruguay" /><span
-                      >Uruguay</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="pais" value="Perú" /><span>Perú</span></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="pais" value="otro" /><span>Otro</span></label
-                  >
-                </div>
-              </div>
-            </div>
-            <div id="pais-otro-wrap" class="form-field form-field--inline hidden">
-              <label for="pais_otro">¿Cuál? <span class="opt">(opcional)</span></label>
-              <input type="text" id="pais_otro" name="pais_otro" placeholder="País o zona horaria" />
-            </div>
-          </fieldset>
+				<div class="hp-field" aria-hidden="true">
+					<label for="website">Sitio web</label>
+					<input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+				</div>
 
-          <fieldset class="form-group" data-step="2" hidden>
-            <legend class="form-legend visually-hidden">Tu perfil</legend>
-            <div class="form-field" data-field="experiencia">
-              <span class="form-label" id="experiencia-label"
-                >¿Cuánto llevás escribiendo código? <span class="req">*</span></span
-              >
-              <div
-                class="field-picker"
-                data-mode="single"
-                data-placeholder="Elegí una opción"
-                role="radiogroup"
-                aria-labelledby="experiencia-label"
-              >
-                <button
-                  type="button"
-                  class="field-picker__trigger"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                >
-                  <span class="field-picker__text">Elegí una opción</span>
-                  <span class="field-picker__chevron" aria-hidden="true"></span>
-                </button>
-                <div class="field-picker__backdrop" hidden></div>
-                <div class="field-picker__sheet" role="listbox" hidden>
-                  <label class="field-picker__option chip"
-                    ><input
-                      class="visually-hidden"
-                      type="radio"
-                      name="experiencia"
-                      value="nada"
-                      required
-                      aria-required="true"
-                    /><span>Nada</span></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="experiencia" value="menos-6m" /><span
-                      >&lt; 6 meses</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="experiencia" value="6m-2a" /><span
-                      >6 meses – 2 años</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="experiencia" value="2-5a" /><span
-                      >2 – 5 años</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="experiencia" value="5a-mas" /><span
-                      >&gt; 5 años</span
-                    ></label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="form-field" data-field="areas">
-              <span class="form-label" id="areas-label"
-                >¿En qué áreas te movés? <span class="req">*</span></span
-              >
-              <div
-                class="field-picker"
-                data-mode="multi"
-                data-placeholder="Elegí una o más"
-                role="group"
-                aria-labelledby="areas-label"
-              >
-                <button
-                  type="button"
-                  class="field-picker__trigger"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                >
-                  <span class="field-picker__text">Elegí una o más</span>
-                  <span class="field-picker__chevron" aria-hidden="true"></span>
-                </button>
-                <div class="field-picker__backdrop" hidden></div>
-                <div class="field-picker__sheet" role="listbox" hidden>
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="checkbox" name="areas" value="Frontend" /><span
-                      >Frontend</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="checkbox" name="areas" value="Backend" /><span
-                      >Backend</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="checkbox" name="areas" value="Full stack" /><span
-                      >Full stack</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="checkbox" name="areas" value="Base de datos" /><span
-                      >Base de datos</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="checkbox" name="areas" value="DevOps" /><span
-                      >DevOps / infra</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="checkbox" name="areas" value="Ninguna" /><span
-                      >Ninguna</span
-                    ></label
-                  >
-                  <div class="field-picker__footer">
-                    <button type="button" class="btn btn-primary field-picker__done">Listo</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-field" data-field="ia_codear">
-              <span class="form-label" id="ia-codear-label"
-                >¿Usaste IA para codear? <span class="req">*</span></span
-              >
-              <div
-                class="field-picker"
-                data-mode="single"
-                data-placeholder="Elegí una opción"
-                role="radiogroup"
-                aria-labelledby="ia-codear-label"
-              >
-                <button
-                  type="button"
-                  class="field-picker__trigger"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                >
-                  <span class="field-picker__text">Elegí una opción</span>
-                  <span class="field-picker__chevron" aria-hidden="true"></span>
-                </button>
-                <div class="field-picker__backdrop" hidden></div>
-                <div class="field-picker__sheet" role="listbox" hidden>
-                  <label class="field-picker__option chip"
-                    ><input
-                      class="visually-hidden"
-                      type="radio"
-                      name="ia_codear"
-                      value="cursor-diario"
-                      required
-                      aria-required="true"
-                    /><span>Cursor a diario</span></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="ia_codear" value="chatgpt-ocasional" /><span
-                      >ChatGPT ocasional</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="ia_codear" value="poco" /><span
-                      >Poco / recién</span
-                    ></label
-                  >
-                  <label class="field-picker__option chip"
-                    ><input class="visually-hidden" type="radio" name="ia_codear" value="no-ia" /><span
-                      >No uso IA para codear</span
-                    ></label
-                  >
-                </div>
-              </div>
-            </div>
-            <p class="form-profile-warn" id="profile-warn" role="status" hidden>
-              Revisá: marcaste sin experiencia pero sí áreas o IA avanzada.
-            </p>
-            <div class="form-field" data-field="costaria">
-              <div class="form-label-row">
-                <label for="costaria"
-                  >¿Qué te costaría más implementar solo hoy?
-                  <span class="label-meta">(1–3 frases) <span class="req">*</span></span></label
-                >
-                <span class="form-char-count" id="costaria-count" aria-live="polite">0 / 15</span>
-              </div>
-              <textarea
-                id="costaria"
-                name="costaria"
-                rows="1"
-                required
-                placeholder="Ej: API con auth y deploy en un VPS"
-                data-autogrow
-              ></textarea>
-            </div>
-            <div class="form-field form-field--optional-row">
-              <input
-                type="url"
-                id="github"
-                name="github"
-                placeholder="GitHub / GitLab (opcional)"
-              />
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email (opcional)"
-                autocomplete="email"
-              />
-            </div>
-          </fieldset>
+				<input type="hidden" name="utm_source" />
+				<input type="hidden" name="utm_medium" />
+				<input type="hidden" name="utm_campaign" />
+				<input type="hidden" name="utm_content" />
+				<input type="hidden" name="utm_term" />
 
-          <div class="form-step-nav-wrap">
-            <div class="form-step-nav">
-              <button type="button" class="btn btn-primary" id="form-next" disabled>Siguiente</button>
-              <button type="submit" class="btn btn-primary btn-submit" id="form-submit" hidden disabled>
-                <span class="btn-label">Aplicar al grupo</span>
-                <span class="btn-loading" hidden>Enviando…</span>
-              </button>
-            </div>
-          </div>
-          <p class="form-post-cta" id="form-post-cta">
-            No es pago ni cupo garantizado. Te escribo por WhatsApp para la entrevista de 10 min.
-          </p>
-        </form>
-      </section>
+				<fieldset class="form-group is-active" data-step="1">
+					<legend class="form-legend visually-hidden">Contacto</legend>
+					<div class="form-field form-field--inline">
+						<label for="nombre">Nombre <span class="req">*</span></label>
+						<input type="text" id="nombre" name="nombre" required autocomplete="name" />
+					</div>
+					<div class="form-field form-field--inline">
+						<label for="whatsapp">WhatsApp <span class="req">*</span></label>
+						<input type="tel" id="whatsapp" name="whatsapp" required placeholder="+54 9 11 …"
+							autocomplete="tel" />
+					</div>
+					<div class="form-field form-field--inline" data-field="pais">
+						<span class="form-label" id="pais-label">País <span class="req">*</span></span>
+						<div class="field-picker" data-mode="single" data-placeholder="Seleccioná…" role="radiogroup"
+							aria-labelledby="pais-label">
+							<button type="button" class="field-picker__trigger" aria-haspopup="listbox"
+								aria-expanded="false">
+								<span class="field-picker__text">Seleccioná…</span>
+								<span class="field-picker__chevron" aria-hidden="true"></span>
+							</button>
+							<div class="field-picker__backdrop" hidden></div>
+							<div class="field-picker__sheet" role="listbox" hidden>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="Argentina" required
+										aria-required="true" /><span>Argentina</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="México" /><span>México</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="Colombia" /><span>Colombia</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="Chile" /><span>Chile</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="España" /><span>España</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="Uruguay" /><span>Uruguay</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="Perú" /><span>Perú</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="pais" value="otro" /><span>Otro</span></label>
+							</div>
+						</div>
+					</div>
+					<div id="pais-otro-wrap" class="form-field form-field--inline hidden">
+						<label for="pais_otro">¿Cuál? <span class="opt">(opcional)</span></label>
+						<input type="text" id="pais_otro" name="pais_otro" placeholder="País o zona horaria" />
+					</div>
+				</fieldset>
 
-      <footer class="site-footer">
-        <p>Ingeniero Aumentado por IA · Mes 1 · Lucas Jappert</p>
-        <span class="site-footer__glow" aria-hidden="true"></span>
-      </footer>
-    </main>
-  </body>
+				<fieldset class="form-group" data-step="2" hidden>
+					<legend class="form-legend visually-hidden">Tu perfil</legend>
+					<div class="form-field" data-field="experiencia">
+						<span class="form-label" id="experiencia-label">¿Cuánto llevás escribiendo código? <span
+								class="req">*</span></span>
+						<div class="field-picker" data-mode="single" data-placeholder="Elegí una opción"
+							role="radiogroup" aria-labelledby="experiencia-label">
+							<button type="button" class="field-picker__trigger" aria-haspopup="listbox"
+								aria-expanded="false">
+								<span class="field-picker__text">Elegí una opción</span>
+								<span class="field-picker__chevron" aria-hidden="true"></span>
+							</button>
+							<div class="field-picker__backdrop" hidden></div>
+							<div class="field-picker__sheet" role="listbox" hidden>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="experiencia" value="nada" required
+										aria-required="true" /><span>Nada</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="experiencia" value="menos-6m" /><span>&lt; 6 meses</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="experiencia" value="6m-2a" /><span>6 meses – 2 años</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="experiencia" value="2-5a" /><span>2 – 5 años</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="experiencia" value="5a-mas" /><span>&gt; 5 años</span></label>
+							</div>
+						</div>
+					</div>
+					<div class="form-field" data-field="areas">
+						<span class="form-label" id="areas-label">¿En qué áreas te movés? <span
+								class="req">*</span></span>
+						<div class="field-picker" data-mode="multi" data-placeholder="Elegí una o más" role="group"
+							aria-labelledby="areas-label">
+							<button type="button" class="field-picker__trigger" aria-haspopup="listbox"
+								aria-expanded="false">
+								<span class="field-picker__text">Elegí una o más</span>
+								<span class="field-picker__chevron" aria-hidden="true"></span>
+							</button>
+							<div class="field-picker__backdrop" hidden></div>
+							<div class="field-picker__sheet" role="listbox" hidden>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="checkbox"
+										name="areas" value="Frontend" /><span>Frontend</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="checkbox"
+										name="areas" value="Backend" /><span>Backend</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="checkbox"
+										name="areas" value="Full stack" /><span>Full stack</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="checkbox"
+										name="areas" value="Base de datos" /><span>Base de datos</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="checkbox"
+										name="areas" value="DevOps" /><span>DevOps / infra</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="checkbox"
+										name="areas" value="Ninguna" /><span>Ninguna</span></label>
+								<div class="field-picker__footer">
+									<button type="button" class="btn btn-primary field-picker__done">Listo</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-field" data-field="ia_codear">
+						<span class="form-label" id="ia-codear-label">¿Usaste IA para codear? <span
+								class="req">*</span></span>
+						<div class="field-picker" data-mode="single" data-placeholder="Elegí una opción"
+							role="radiogroup" aria-labelledby="ia-codear-label">
+							<button type="button" class="field-picker__trigger" aria-haspopup="listbox"
+								aria-expanded="false">
+								<span class="field-picker__text">Elegí una opción</span>
+								<span class="field-picker__chevron" aria-hidden="true"></span>
+							</button>
+							<div class="field-picker__backdrop" hidden></div>
+							<div class="field-picker__sheet" role="listbox" hidden>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="ia_codear" value="cursor-diario" required
+										aria-required="true" /><span>Cursor a diario</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="ia_codear" value="chatgpt-ocasional" /><span>ChatGPT
+										ocasional</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="ia_codear" value="poco" /><span>Poco / recién</span></label>
+								<label class="field-picker__option chip"><input class="visually-hidden" type="radio"
+										name="ia_codear" value="no-ia" /><span>No uso IA para codear</span></label>
+							</div>
+						</div>
+					</div>
+					<p class="form-profile-warn" id="profile-warn" role="status" hidden>
+						Revisá: marcaste sin experiencia pero sí áreas o IA avanzada.
+					</p>
+					<div class="form-field" data-field="costaria">
+						<div class="form-label-row">
+							<label for="costaria">¿Qué te costaría más implementar solo hoy?
+								<span class="label-meta">(1–3 frases) <span class="req">*</span></span></label>
+							<span class="form-char-count" id="costaria-count" aria-live="polite">0 / 15</span>
+						</div>
+						<textarea id="costaria" name="costaria" rows="1" required
+							placeholder="Ej: API con auth y deploy en un VPS" data-autogrow></textarea>
+					</div>
+					<div class="form-field form-field--optional-row">
+						<input type="url" id="github" name="github" placeholder="GitHub / GitLab (opcional)" />
+						<input type="email" id="email" name="email" placeholder="Email (opcional)"
+							autocomplete="email" />
+					</div>
+				</fieldset>
+
+				<div class="form-step-nav-wrap">
+					<div class="form-step-nav">
+						<button type="button" class="btn btn-primary" id="form-next" disabled>Siguiente</button>
+						<button type="submit" class="btn btn-primary btn-submit" id="form-submit" hidden disabled>
+							<span class="btn-label">Aplicar al grupo</span>
+							<span class="btn-loading" hidden>Enviando…</span>
+						</button>
+					</div>
+				</div>
+				<p class="form-post-cta" id="form-post-cta">
+					No es pago ni cupo garantizado. Te escribo por WhatsApp para la entrevista de 10 min.
+				</p>
+			</form>
+		</section>
+
+		<footer class="site-footer">
+			<p>Ingeniero Aumentado por IA · Mes 1 · Lucas Jappert</p>
+			<span class="site-footer__glow" aria-hidden="true"></span>
+		</footer>
+	</main>
+</body>
+
 </html>

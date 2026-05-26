@@ -64,10 +64,6 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-
-  .page-mesh__blob {
-    animation: none !important;
-  }
 }
 
 body {
@@ -109,11 +105,11 @@ a:hover {
 /* —— Layout —— */
 
 .page-mesh {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .page-mesh__blob {
@@ -121,87 +117,47 @@ a:hover {
   display: block;
   border-radius: 50%;
   pointer-events: none;
-  will-change: transform;
 }
 
-/* Celeste: recorre de izquierda hacia la derecha */
 .page-mesh__blob--cyan {
   width: min(120vw, 920px);
   height: min(82vh, 640px);
-  left: -14%;
-  top: 6%;
+  left: -55%;
+  top: -5%;
   background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 232, 255, 0.24), transparent 62%);
-  animation: mesh-blob-cyan 14s ease-in-out infinite alternate;
 }
 
-@keyframes mesh-blob-cyan {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(44vw, 8vh) scale(1.12);
-  }
-}
-
-/* Verde: sube desde abajo-derecha */
 .page-mesh__blob--green {
   width: min(105vw, 800px);
   height: min(78vh, 580px);
-  right: -10%;
-  bottom: -8%;
-  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(34, 232, 132, 0.16), transparent 58%);
-  animation: mesh-blob-green 18s ease-in-out infinite alternate;
-  animation-delay: -5s;
+  right: -50%;
+  bottom: 11%;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(34, 232, 132, 0.16), transparent 100%);
 }
 
-@keyframes mesh-blob-green {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(-40vw, -22vh) scale(1.08);
-  }
-}
-
-/* Agua: baja desde arriba-derecha hacia el centro */
 .page-mesh__blob--agua {
   width: min(88vw, 660px);
   height: min(72vh, 540px);
-  right: 4%;
-  top: -8%;
+  right: -30%;
+  top: -18%;
   background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(46, 232, 184, 0.14), transparent 58%);
-  animation: mesh-blob-agua 20s ease-in-out infinite alternate;
-  animation-delay: -9s;
 }
 
-@keyframes mesh-blob-agua {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(-14vw, 42vh) scale(0.92);
-  }
-}
-
-/* Brillo suave: diagonal por el centro-alto */
 .page-mesh__blob--soft {
   width: min(72vw, 540px);
   height: min(48vh, 400px);
   left: 28%;
   top: -6%;
   background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255, 255, 255, 0.05), transparent 62%);
-  animation: mesh-blob-soft 16s ease-in-out infinite alternate;
-  animation-delay: -3s;
 }
 
-@keyframes mesh-blob-soft {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(-20vw, 28vh) scale(1.14);
-  }
+/* Red neuronal (canvas) — desactivado; ver js/neural-bg.js
+.page-mesh__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
+*/
 
 .site-nav {
   position: sticky;
@@ -325,15 +281,14 @@ a:hover {
   width: 100%;
   max-width: none;
   box-sizing: border-box;
-  padding: 0.85rem 1rem 0.85rem 0.9rem;
+  padding: 1.35rem 1.5rem;
   font-size: var(--text-sm);
   line-height: 1.55;
-  color: rgba(196, 208, 228, 0.92);
-  background: rgba(0, 232, 255, 0.07);
-  border: 1px solid rgba(0, 232, 255, 0.22);
-  border-left: 3px solid var(--celeste);
-  border-radius: var(--radius);
-  box-shadow: 0 4px 20px rgba(0, 232, 255, 0.06);
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 232, 255, 0.42);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
 }
 
 .hero-trust__main {
