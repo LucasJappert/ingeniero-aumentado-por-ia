@@ -228,14 +228,15 @@ a:hover {
 .wrap {
   position: relative;
   z-index: 1;
-  width: min(720px, 92vw);
-  margin: 0 auto;
-  padding: 2rem 0 4rem;
+  width: min(720px, 100vw);
+  /* margin: 0 auto; */
+  padding: 2rem 10px 4rem;
   /* overflow-x: hidden; */
 }
 
 @media (min-width: 768px) {
   .wrap {
+	margin: 0 auto;
     padding: 2.5rem 0 5rem;
   }
 }
