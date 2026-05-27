@@ -231,7 +231,7 @@ a:hover {
   width: min(720px, 100vw);
   /* margin: 0 auto; */
   padding: 2rem 10px 4rem;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 @media (min-width: 768px) {
