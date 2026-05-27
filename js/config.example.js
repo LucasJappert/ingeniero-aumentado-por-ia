@@ -11,4 +11,10 @@ window.LANDING_CONFIG = {
 
 	/** Ruta de la página de gracias (mismo dominio que index.html) */
 	THANK_YOU_PATH: "gracias.html",
+
+	/**
+	 * En file:// o localhost no se llama a Apps Script (eventos ni formulario).
+	 * Poné true solo si querés probar el POST contra GAS desde tu máquina.
+	 */
+	// ALLOW_BACKEND_IN_DEV: true,
 };

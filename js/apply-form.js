@@ -66,6 +66,9 @@
   }
 
   function getSubmitUrl(cfg) {
+    if (typeof window.getLandingBackendUrl === "function") {
+      return window.getLandingBackendUrl();
+    }
     var url = (cfg.FORM_SUBMIT_URL || "").trim();
     if (!url || url.indexOf("REEMPLAZAR") !== -1) return "";
     return url;
@@ -858,6 +861,9 @@
   function initConfigWarn() {
     var warn = document.getElementById("config-warn");
     if (!warn) return;
+    if (typeof window.isLandingDevOrigin === "function" && window.isLandingDevOrigin()) {
+      return;
+    }
     if (!getSubmitUrl(getConfig())) warn.classList.add("visible");
   }
 

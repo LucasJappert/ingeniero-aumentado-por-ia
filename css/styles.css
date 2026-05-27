@@ -728,7 +728,7 @@ ul.clean li strong {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 45;
+    z-index: 35;
     padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
     background: linear-gradient(
       to top,
@@ -766,7 +766,8 @@ ul.clean li strong {
   }
 }
 
-body.form-submitting .apply-fab {
+body.form-submitting .apply-fab,
+body.field-picker-open .apply-fab {
   display: none !important;
 }
 

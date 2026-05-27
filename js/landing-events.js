@@ -13,6 +13,9 @@
   }
 
   function getEndpoint() {
+    if (typeof window.getLandingBackendUrl === "function") {
+      return window.getLandingBackendUrl();
+    }
     var url = (getConfig().FORM_SUBMIT_URL || "").trim();
     if (!url || url.indexOf("REEMPLAZAR") !== -1) return "";
     return url;
