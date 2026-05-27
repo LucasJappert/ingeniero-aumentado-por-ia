@@ -11,14 +11,39 @@
     return window.LANDING_CONFIG || {};
   }
 
-  function readUtmsFromUrl() {
-    var params = new URLSearchParams(window.location.search);
+  var UTM_STORAGE_KEY = "iaah_utms";
+
+  function readUtmsFromParams(params) {
     var out = {};
     UTM_KEYS.forEach(function (key) {
       var v = params.get(key);
       if (v) out[key] = v;
     });
     return out;
+  }
+
+  function readStoredUtms() {
+    try {
+      var raw = localStorage.getItem(UTM_STORAGE_KEY);
+      if (!raw) return {};
+      var parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function readUtmsFromUrl() {
+    var fromUrl = readUtmsFromParams(new URLSearchParams(window.location.search));
+    if (Object.keys(fromUrl).length) {
+      try {
+        localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromUrl));
+      } catch (e) {
+        /* */
+      }
+      return fromUrl;
+    }
+    return readStoredUtms();
   }
 
   function fillUtmHiddenFields(form) {

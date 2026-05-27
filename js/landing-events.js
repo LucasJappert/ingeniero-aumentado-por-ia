@@ -4,7 +4,9 @@
  */
 (function () {
   var SESSION_KEY = "iaah_session_id";
+  var UTM_STORAGE_KEY = "iaah_utms";
   var SENT = {};
+  var BOOTED = false;
 
   function getConfig() {
     return window.LANDING_CONFIG || {};
@@ -16,15 +18,54 @@
     return url;
   }
 
-  function readUtms() {
-    var keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
-    var params = new URLSearchParams(window.location.search);
+  function utmKeys() {
+    return ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+  }
+
+  function readUtmsFromParams(params) {
     var out = {};
-    keys.forEach(function (key) {
+    utmKeys().forEach(function (key) {
       var v = params.get(key);
       if (v) out[key] = v;
     });
     return out;
+  }
+
+  /** URL primero; si IG recorta query al navegar, usamos lo guardado al primer paint. */
+  function persistUtmsFromUrl() {
+    var fromUrl = readUtmsFromParams(new URLSearchParams(window.location.search));
+    if (!Object.keys(fromUrl).length) return;
+    try {
+      localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromUrl));
+    } catch (e) {
+      /* privado / ITP */
+    }
+  }
+
+  function readStoredUtms() {
+    try {
+      var raw = localStorage.getItem(UTM_STORAGE_KEY);
+      if (!raw) return {};
+      var parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function readUtms() {
+    var fromUrl = readUtmsFromParams(new URLSearchParams(window.location.search));
+    var stored = readStoredUtms();
+    var out = {};
+    utmKeys().forEach(function (key) {
+      out[key] = fromUrl[key] || stored[key] || "";
+    });
+    return out;
+  }
+
+  function isInAppBrowser() {
+    var ua = navigator.userAgent || "";
+    return /Instagram|FBAN|FBAV|FB_IAB|FBIOS|MetaIAB/i.test(ua);
   }
 
   function sessionId() {
@@ -68,7 +109,27 @@
     };
   }
 
-  /** GET vía imagen — muy fiable con Apps Script (visitas de página). */
+  function sendEventBeacon(payload) {
+    var endpoint = getEndpoint();
+    if (!endpoint || !navigator.sendBeacon) return false;
+    try {
+      var blob = new Blob([JSON.stringify(payload)], {
+        type: "text/plain;charset=utf-8",
+      });
+      return navigator.sendBeacon(endpoint, blob);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /** POST + beacon (WebView IG/iOS suele bloquear el pixel por imagen). */
+  function sendEventReliable(payload) {
+    if (!sendEventBeacon(payload)) {
+      sendEventPost(payload);
+    }
+  }
+
+  /** GET vía imagen — fiable en Safari/Chrome; a menudo bloqueado en IG in-app. */
   function sendEventGet(payload) {
     var endpoint = getEndpoint();
     if (!endpoint) return;
@@ -110,13 +171,27 @@
     SENT[dedupeKey] = true;
 
     var payload = buildPayload(name, section);
-    var useGet = opts && opts.get === true;
+    var mode = (opts && opts.mode) || "post";
 
-    if (useGet) {
-      sendEventGet(payload);
-    } else {
-      sendEventPost(payload);
+    if (mode === "visit") {
+      var beaconOk = sendEventBeacon(payload);
+      if (!beaconOk) sendEventPost(payload);
+      if (!isInAppBrowser()) {
+        sendEventGet(payload);
+      } else if (!beaconOk) {
+        window.setTimeout(function () {
+          sendEventPost(payload);
+        }, 2500);
+      }
+      return;
     }
+
+    if (mode === "get") {
+      sendEventGet(payload);
+      return;
+    }
+
+    sendEventPost(payload);
   }
 
   /** Para llamar desde apply-form.js al enviar aplicación. */
@@ -174,16 +249,26 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function bootLandingEvents() {
+    if (BOOTED) return;
+    BOOTED = true;
+
+    persistUtmsFromUrl();
+
     var page = pageName();
     if (page === "gracias") {
-      sendEvent("thank_you_view", "gracias", { get: true });
+      sendEvent("thank_you_view", "gracias", { mode: "visit" });
       return;
     }
 
-    sendEvent("page_view", "landing", { get: true });
-    sendEvent("landing_view", "hero", { get: true });
+    sendEvent("page_view", "landing", { mode: "visit" });
+    sendEvent("landing_view", "hero", { mode: "visit" });
     bindSectionTracking();
     bindFormStepTracking();
+  }
+
+  document.addEventListener("DOMContentLoaded", bootLandingEvents);
+  window.addEventListener("pageshow", function (ev) {
+    if (ev.persisted) bootLandingEvents();
   });
 })();
