@@ -193,6 +193,12 @@
   }
 
   function fieldIsComplete(form, fieldKey) {
+    if (fieldKey === "nombre" || fieldKey === "whatsapp") {
+      return !!trimVal(form, fieldKey);
+    }
+    if (fieldKey === "pais") {
+      return isPaisValid(form);
+    }
     if (fieldKey === "experiencia" || fieldKey === "ia_codear") {
       return hasRadio(form, fieldKey);
     }
@@ -205,12 +211,23 @@
     return false;
   }
 
-  function updateFieldCompletion(form) {
-    if (getCurrentStep(form) !== 2) return;
-    form.querySelectorAll(".form-field[data-field]").forEach(function (wrap) {
-      var key = wrap.getAttribute("data-field");
-      wrap.classList.toggle("is-complete", fieldIsComplete(form, key));
-    });
+  function updateFieldStatus(form) {
+    var step = getCurrentStep(form);
+
+    form
+      .querySelectorAll('fieldset[data-step="' + step + '"] .form-field[data-field]')
+      .forEach(function (wrap) {
+        var key = wrap.getAttribute("data-field");
+        if (!key) return;
+        if (key === "pais" && !isPaisFieldVisible(form)) {
+          wrap.classList.remove("is-complete", "is-pending");
+          return;
+        }
+
+        var complete = fieldIsComplete(form, key);
+        wrap.classList.toggle("is-complete", step === 2 && complete);
+        wrap.classList.toggle("is-pending", !complete);
+      });
   }
 
   function hasAreaBesidesNinguna(form) {
@@ -251,20 +268,33 @@
     nextBtn.classList.toggle("is-ready", ready);
   }
 
+  function getSubmitButtons() {
+    var list = [];
+    var main = document.getElementById("form-submit");
+    var fab = document.getElementById("form-submit-fab");
+    if (main) list.push(main);
+    if (fab) list.push(fab);
+    return list;
+  }
+
   function updateSubmitButton(form) {
-    var btn = document.getElementById("form-submit");
-    if (!btn || btn.hidden) return;
-    if (btn.getAttribute("aria-busy") === "true") return;
+    var step = getCurrentStep(form);
+    if (step < TOTAL_STEPS) return;
 
     var ready = step2FieldsComplete(form);
-    btn.disabled = !ready;
-    btn.setAttribute("aria-disabled", ready ? "false" : "true");
-    btn.classList.toggle("is-ready", ready);
-    if (!ready) {
-      btn.title = "Completá los campos obligatorios del paso 2";
-    } else {
-      btn.removeAttribute("title");
-    }
+    getSubmitButtons().forEach(function (btn) {
+      if (!btn) return;
+      if (btn.getAttribute("aria-busy") === "true") return;
+
+      btn.disabled = !ready;
+      btn.setAttribute("aria-disabled", ready ? "false" : "true");
+      btn.classList.toggle("is-ready", ready);
+      if (!ready) {
+        btn.title = "Completá los campos obligatorios del paso 2";
+      } else {
+        btn.removeAttribute("title");
+      }
+    });
   }
 
   function updateFormControls(form) {
@@ -272,7 +302,7 @@
     updateSubmitButton(form);
     updateFormProgress(form);
     updateCostariaCount(form);
-    updateFieldCompletion(form);
+    updateFieldStatus(form);
     updateAllPickerTriggers(form);
     updateProfileWarn(form);
   }
@@ -311,6 +341,9 @@
 
     updateStepExtras(form, step);
     updateFormControls(form);
+    if (typeof window.updateApplyFab === "function") {
+      window.updateApplyFab();
+    }
     if (step === 2) {
       var costaria = form.querySelector('[name="costaria"]');
       if (costaria) autoResizeTextarea(costaria);
@@ -470,15 +503,24 @@
     }
   }
 
-  function setLoading(submitBtn, loading) {
-    if (!submitBtn) return;
-    var form = submitBtn.closest("form");
-    submitBtn.disabled = loading;
-    submitBtn.setAttribute("aria-busy", loading ? "true" : "false");
-    var label = submitBtn.querySelector(".btn-label");
-    var wait = submitBtn.querySelector(".btn-loading");
+  function setButtonLoading(btn, loading) {
+    if (!btn) return;
+    btn.disabled = loading;
+    btn.setAttribute("aria-busy", loading ? "true" : "false");
+    var label = btn.querySelector(".btn-label");
+    var wait = btn.querySelector(".btn-loading");
     if (label) label.hidden = loading;
     if (wait) wait.hidden = !loading;
+  }
+
+  function setLoading(submitBtn, loading) {
+    var form =
+      (submitBtn && submitBtn.closest && submitBtn.closest("form")) ||
+      document.getElementById("apply-form");
+
+    getSubmitButtons().forEach(function (btn) {
+      setButtonLoading(btn, loading);
+    });
 
     if (loading && form) {
       form.querySelectorAll(".field-picker.is-open").forEach(closeFieldPicker);
@@ -827,8 +869,54 @@
     updateFormControls(form);
   }
 
+  function initApplyFab() {
+    var fab = document.getElementById("apply-fab");
+    if (!fab) return;
+
+    var mq = window.matchMedia("(max-width: 640px)");
+    var fabSubmit = document.getElementById("form-submit-fab");
+
+    function getFormStep() {
+      var form = document.getElementById("apply-form");
+      if (!form) return 1;
+      return Number(form.getAttribute("data-current-step") || "1");
+    }
+
+    function refreshApplyFab() {
+      var onMobile = mq.matches;
+      var onStep2 = getFormStep() >= 2;
+      var show = onMobile && onStep2;
+
+      document.body.classList.toggle("has-apply-fab", onMobile);
+      document.body.classList.toggle("apply-fab-visible", show);
+
+      fab.hidden = !show;
+      fab.classList.toggle("is-hidden", !show);
+      fab.setAttribute("aria-hidden", show ? "false" : "true");
+    }
+
+    window.updateApplyFab = refreshApplyFab;
+
+    if (fabSubmit) {
+      fabSubmit.addEventListener("click", function () {
+        if (typeof window.trackLandingEvent === "function") {
+          window.trackLandingEvent("apply_fab_click", "aplicar");
+        }
+      });
+    }
+
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", refreshApplyFab);
+    } else if (typeof mq.addListener === "function") {
+      mq.addListener(refreshApplyFab);
+    }
+
+    refreshApplyFab();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initConfigWarn();
+    initApplyFab();
 
     var form = document.getElementById("apply-form");
     if (!form) return;
@@ -861,7 +949,11 @@
         if (nextBtn && !nextBtn.disabled) nextBtn.click();
         return;
       }
-      if (ev.target && ev.target.id !== "form-submit") {
+      if (
+        ev.target &&
+        ev.target.id !== "form-submit" &&
+        ev.target.id !== "form-submit-fab"
+      ) {
         ev.preventDefault();
       }
     });

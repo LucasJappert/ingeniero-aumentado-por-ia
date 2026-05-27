@@ -238,13 +238,23 @@ a:hover {
   .wrap {
 	margin: 0 auto;
     padding: 2.5rem 0 5rem;
+	overflow-x: visible
   }
 }
 
 /* —— Hero —— */
 
 .hero {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .chip {
@@ -257,7 +267,13 @@ a:hover {
   background: rgba(0, 232, 255, 0.12);
   border: 1px solid rgba(0, 232, 255, 0.32);
   color: #8eeaff;
-  margin-bottom: 1rem;
+  white-space: nowrap;
+  gap: 0.5rem;
+}
+
+.chip s {
+  opacity: 0.65;
+  font-weight: 500;
 }
 
 .chip--verde {
@@ -392,6 +408,20 @@ ul.clean li {
 
 ul.clean li strong {
   color: var(--text);
+}
+
+.card--programa .card__panel > p:first-child {
+  margin-bottom: 0.75rem;
+}
+
+.card--programa .card__panel > ul.clean {
+  margin: 0.75rem 0;
+}
+
+.card--programa .card__note {
+  margin: 0;
+  font-size: 0.8125rem;
+  opacity: 0.92;
 }
 
 .card--programa .meta-grid--compact {
@@ -595,10 +625,13 @@ ul.clean li strong {
 /* —— Thank-you —— */
 
 .thanks-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-top: 0.25rem;
 }
 
-.thanks-actions .btn-primary {
+.thanks-actions .btn {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -667,6 +700,75 @@ ul.clean li strong {
 }
 
 /* —— Apply form —— */
+
+#aplicar {
+  scroll-margin-top: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  #aplicar {
+    scroll-margin-bottom: 1rem;
+  }
+
+  body.has-apply-fab.apply-fab-visible {
+    padding-bottom: calc(7.25rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* —— CTA flotante (mobile) —— */
+
+.apply-fab {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .apply-fab {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45;
+    padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(
+      to top,
+      rgba(5, 6, 13, 0.98) 50%,
+      rgba(5, 6, 13, 0.88) 75%,
+      transparent
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+
+  .apply-fab.is-hidden {
+    transform: translateY(110%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .apply-fab__btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .apply-fab__btn.is-ready:not(:disabled) {
+    box-shadow: 0 4px 28px rgba(0, 232, 255, 0.28);
+  }
+
+  .apply-fab__note {
+    margin: 0.45rem 0 0;
+    text-align: center;
+    font-size: var(--text-xs);
+    color: rgba(196, 208, 228, 0.85);
+    line-height: 1.45;
+  }
+}
+
+body.form-submitting .apply-fab {
+  display: none !important;
+}
 
 .apply-section {
   margin-top: 1.75rem;
@@ -903,6 +1005,28 @@ ul.clean li strong {
   color: var(--agua);
   font-weight: 700;
   font-size: 0.9em;
+}
+
+/* Obligatorios pendientes en el paso activo (borde suave, no error fuerte) */
+.form-field.is-pending:not(.is-complete):not(.field-invalid) input[type="text"],
+.form-field.is-pending:not(.is-complete):not(.field-invalid) input[type="tel"],
+.form-field.is-pending:not(.is-complete):not(.field-invalid) input[type="email"],
+.form-field.is-pending:not(.is-complete):not(.field-invalid) input[type="url"],
+.form-field.is-pending:not(.is-complete):not(.field-invalid) textarea,
+.form-field.is-pending:not(.is-complete):not(.field-invalid) select {
+  border-color: rgba(248, 113, 113, 0.38);
+  background-color: rgba(248, 113, 113, 0.04);
+}
+
+.form-field.is-pending:not(.is-complete):not(.field-invalid) .field-picker__trigger {
+  border-color: rgba(248, 113, 113, 0.38);
+  background-color: rgba(248, 113, 113, 0.04);
+}
+
+.form-field.is-pending:not(.is-complete):not(.field-invalid) > label .req,
+.form-field.is-pending:not(.is-complete):not(.field-invalid) > .form-label .req,
+.form-field.is-pending:not(.is-complete):not(.field-invalid) .form-label-row label .req {
+  color: rgba(251, 191, 36, 0.95);
 }
 
 .form-label-row {
@@ -1432,6 +1556,7 @@ body.field-picker-open .wrap {
 
 .form-field.field-invalid .field-picker__trigger {
   border-color: rgba(248, 113, 113, 0.6);
+  background-color: rgba(248, 113, 113, 0.06);
 }
 
 .form-step-nav-wrap {
@@ -1445,27 +1570,9 @@ body.field-picker-open .wrap {
 }
 
 @media (max-width: 640px) {
-  #apply-form[data-current-step="2"] .form-step-nav-wrap {
-    position: sticky;
-    bottom: 0;
-    z-index: 5;
-    margin: 0 -0.35rem;
-    padding: 0.65rem 0.35rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(
-      to top,
-      rgba(5, 6, 13, 0.97) 55%,
-      rgba(5, 6, 13, 0.85) 80%,
-      transparent
-    );
-    backdrop-filter: blur(10px);
-  }
-
-  #apply-form[data-current-step="2"] {
-    padding-bottom: 0.25rem;
-  }
-
-  #apply-form[data-current-step="2"] .form-step-nav .btn-submit {
-    flex: 1 1 100%;
+  #apply-form[data-current-step="2"] .form-step-nav-wrap,
+  #apply-form[data-current-step="2"] .form-post-cta {
+    display: none !important;
   }
 }
 
