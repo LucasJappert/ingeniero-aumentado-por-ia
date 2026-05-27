@@ -84,8 +84,36 @@
     return (el.value || "").toString().trim();
   }
 
+  /** Inputs del picker aunque el sheet esté portaleado fuera del form. */
+  function getFieldPickerInputs(form, fieldKey) {
+    var wrap = form.querySelector('.form-field[data-field="' + fieldKey + '"]');
+    if (!wrap) {
+      return Array.prototype.slice.call(
+        form.querySelectorAll('input[name="' + fieldKey + '"]')
+      );
+    }
+    var picker = wrap.querySelector(".field-picker");
+    if (!picker) {
+      return Array.prototype.slice.call(
+        form.querySelectorAll('input[name="' + fieldKey + '"]')
+      );
+    }
+    var portal = picker._portalNodes;
+    var root =
+      (portal && portal.sheet) ||
+      picker.querySelector(".field-picker__sheet") ||
+      picker;
+    return Array.prototype.slice.call(
+      root.querySelectorAll('input[name="' + fieldKey + '"]')
+    );
+  }
+
   function hasRadio(form, name) {
-    return !!form.querySelector('input[name="' + name + '"]:checked');
+    var inputs = getFieldPickerInputs(form, name);
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].checked) return true;
+    }
+    return false;
   }
 
   function isPaisFieldVisible(form) {
@@ -105,7 +133,11 @@
   }
 
   function areaCount(form) {
-    return form.querySelectorAll('input[name="areas"]:checked').length;
+    var n = 0;
+    getFieldPickerInputs(form, "areas").forEach(function (inp) {
+      if (inp.checked) n++;
+    });
+    return n;
   }
 
   function step1Complete(form) {
@@ -230,13 +262,14 @@
         var complete = fieldIsComplete(form, key);
         wrap.classList.toggle("is-complete", step === 2 && complete);
         wrap.classList.toggle("is-pending", !complete);
+        if (complete) wrap.classList.remove("field-invalid");
       });
   }
 
   function hasAreaBesidesNinguna(form) {
-    var checked = form.querySelectorAll('input[name="areas"]:checked');
-    for (var i = 0; i < checked.length; i++) {
-      if (checked[i].value !== AREA_NINGUNA) return true;
+    var inputs = getFieldPickerInputs(form, "areas");
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].checked && inputs[i].value !== AREA_NINGUNA) return true;
     }
     return false;
   }
@@ -368,8 +401,8 @@
 
   function collectAreas(form) {
     var checked = [];
-    form.querySelectorAll('input[name="areas"]:checked').forEach(function (el) {
-      checked.push(el.value);
+    getFieldPickerInputs(form, "areas").forEach(function (el) {
+      if (el.checked) checked.push(el.value);
     });
     return checked.join(", ");
   }
@@ -613,6 +646,8 @@
     if (nodes.backdrop) nodes.backdrop.setAttribute("hidden", "");
     restorePickerFromBody(picker);
     updatePickerTrigger(picker);
+    var form = document.getElementById("apply-form");
+    if (form) updateFormControls(form);
     if (!document.querySelector(".field-picker.is-open")) {
       document.body.classList.remove("field-picker-open");
     }
